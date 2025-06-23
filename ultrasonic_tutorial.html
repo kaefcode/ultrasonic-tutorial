@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultrasonic Agentics - Полное руководство для разработчиков</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.7;
+        }
+        
+        .code-block {
+            background: #1a1a1a;
+            color: #f8f8f2;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a8e6cf 0%, #dcedc1 100%);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-left: 5px solid #e17055;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, #55efc4 0%, #00b894 100%);
+            color: white;
+        }
+        
+        .section-header {
+            border-bottom: 3px solid #0984e3;
+            background: linear-gradient(90deg, #74b9ff, #0984e3);
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .subsection-header {
+            background: linear-gradient(90deg, #a29bfe, #6c5ce7);
+            color: white;
+        }
+        
+        .feature-card {
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-2px);
+            border-color: #0984e3;
+        }
+        
+        .command-output {
+            background: #2d3748;
+            color: #68d391;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+        
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+         {
+            body {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+            .no-print {
+                display: none;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Header -->
+    <header class="section-header py-8 px-6 text-center">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-5xl font-bold mb-4">
+                <i class="fas fa-wave-square mr-4"></i>
+                Ultrasonic Agentics
+            </h1>
+            <p class="text-xl mb-2">Полное руководство для разработчиков</p>
+            <p class="text-lg opacity-90">Скрытая передача AI команд через ультразвуковые частоты</p>
+        </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+        
+        <!-- Table of Contents -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600">
+                <i class="fas fa-list-ul mr-2"></i>
+                Содержание
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div>
+                    <a href="#introduction" class="block py-1 hover:text-blue-600">1. Введение</a>
+                    <a href="#what-is" class="block py-1 hover:text-blue-600">2. Что такое Ultrasonic Agentics</a>
+                    <a href="#features" class="block py-1 hover:text-blue-600">3. Ключевые особенности</a>
+                    <a href="#architecture" class="block py-1 hover:text-blue-600">4. Архитектура системы</a>
+                    <a href="#installation" class="block py-1 hover:text-blue-600">5. Установка и настройка</a>
+                    <a href="#cli" class="block py-1 hover:text-blue-600">6. Интерфейс командной строки</a>
+                </div>
+                <div>
+                    <a href="#python-examples" class="block py-1 hover:text-blue-600">7. Программные примеры</a>
+                    <a href="#web-interface" class="block py-1 hover:text-blue-600">8. Веб-интерфейс</a>
+                    <a href="#mcp-integration" class="block py-1 hover:text-blue-600">9. MCP интеграция</a>
+                    <a href="#advanced" class="block py-1 hover:text-blue-600">10. Расширенные возможности</a>
+                    <a href="#security" class="block py-1 hover:text-blue-600">11. Безопасность</a>
+                    <a href="#use-cases" class="block py-1 hover:text-blue-600">12. Примеры использования</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Introduction -->
+        <section id="introduction" class="mb-12">
+            <div class="subsection-header py-4 px-6 rounded-t-lg">
+                <h2 class="text-3xl font-bold">
+                    <i class="fas fa-play-circle mr-3"></i>
+                    1. Введение
+                </h2>
+            </div>
+            <div class="bg-white p-6 rounded-b-lg shadow-lg">
+                <p class="text-lg mb-4">
+                    Добро пожаловать в мир <span class="highlight font-semibold">Ultrasonic Agentics</span> - революционной технологии стеганографии, которая позволяет скрывать зашифрованные AI команды в ультразвуковых частотах. Эта технология открывает новые горизонты для безопасной и незаметной передачи данных.
+                </p>
+                
+                <div class="info-box p-4 rounded-lg mb-6">
+                    <h3 class="font-bold text-lg mb-2">
+                        <i class="fas fa-lightbulb mr-2"></i>
+                        Что делает эту технологию особенной?
+                    </h3>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Команды полностью <strong>неслышимы</strong> для человеческого уха (18-20 кГц)</li>
+                        <li><strong>Военный уровень шифрования</strong> AES-256 с HMAC аутентификацией</li>
+                        <li>Работает с любыми аудио и видео файлами</li>
+                        <li>Интеграция с AI агентами через MCP протокол</li>
+                        <li>Энергоэффективная работа для IoT устройств</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box p-4 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        Важные замечания для начинающих
+                    </h3>
+                    <p>
+                        Данная технология требует базового понимания Python, работы с командной строкой и основ цифровой обработки сигналов. Все команды в этом руководстве приведены на английском языке для совместимости с международными стандартами.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- What is Ultrasonic Agentics -->
+        <section id="what-is" class="mb-12">
+            <div class="subsection-header py-4 px-6 rounded-t-lg">
+                <h2 class="text-3xl font-bold">
+                    <i class="fas fa-question-circle mr-3"></i>
+                    2. Что такое Ultrasonic Agentics
+                </h2>
+            </div>
+            <div class="bg-white p-6 rounded-b-lg shadow-lg">
+                <p class="text-lg mb-6">
+                    <strong>Ultrasonic Agentics</strong> - это передовой фреймворк стеганографии, который встраивает зашифрованные AI команды в ультразвуковые частоты от 18 до 20 кГц. Эти частоты находятся за пределами человеческого слуха, но могут быть обнаружены и обработаны программным обеспечением.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="feature-card p-4 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">
+                            <i class="fas fa-eye-slash mr-2 text-blue-600"></i>
+                            100% Невидимая связь
+                        </h3>
+                        <p class="text-sm">
+                            Команды скрываются в фоновом шуме и полностью невидимы для обнаружения стандартными методами анализа аудио.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card p-4 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">
+                            <i class="fas fa-battery-three-quarters mr-2 text-green-600"></i>
+                            Сверхнизкое энергопотребление
+                        </h3>
+                        <p class="text-sm">
+                            Оптимизирована для работы на батарейных устройствах и встроенных системах с минимальным потреблением энергии.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <h3 class="font-bold text-lg mb-3">
+                        <i class="fas fa-broadcast-tower mr-2"></i>
+                        Способы передачи данных:
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        <div class="text-center">
+                            <i class="fas fa-radio text-2xl text-purple-600 mb-2"></i>
+                            <p>AM/FM радио</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fab fa-spotify text-2xl text-green-600 mb-2"></i>
+                            <p>Spotify потоки</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fab fa-youtube text-2xl text-red-600 mb-2"></i>
+                            <p>YouTube видео</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-phone-alt text-2xl text-blue-600 mb-2"></i>
+                            <p>Домофоны</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features -->
+        <section id="features" class="mb-12">
+            <div class="subsection-header py-4 px-6 rounded-t-lg">
+                <h2 class="text-3xl font-bold">
+                    <i class="fas fa-star mr-3"></i>
+                    3. Ключевые особенности
+                </h2>
+            </div>
+            <div class="bg-white p-6 rounded-b-lg shadow-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="border border-gray-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-volume-off text-3xl text-blue-600"></i>
+                        </div>
+                        <h3 class="font-bold text-center mb-2">Неслышимые команды</h3>
+                        <p class="text-sm text-gray-600 text-center">
+                            Встраивание данных в частоты 18-20 кГц, которые находятся за пределами человеческого слуха
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-shield-alt text-3xl text-green-600"></i>
+                        </div>
+                        <h3 class="font-bold text-center mb-2">Военное шифрование</h3>
+                        <p class="text-sm text-gray-600 text-center">
+                            AES-256 шифрование с HMAC аутентификацией для максимальной безопасности
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-film text-3xl text-purple-600"></i>
+                        </div>
+                        <h3 class="font-bold text-center mb-2">Аудио/Видео поддержка</h3>
+                        <p class="text-sm text-gray-600 text-center">
+                            Работает с любыми форматами аудио и видео файлов
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-robot text-3xl text-red-600"></i>
+                        </div>
+                        <h3 class="font-bold text-center mb-2">AI-готовность</h3>
+                        <p class="text-sm text-gray-600 text-center">
+                            Интеграция с MCP (Model Context Protocol) для AI агентов
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-clock text-3xl text-yellow-600"></i>
+                        </div>
+                        <h3 class="font-bold text-center mb-2">Реального времени</h3>
+                        <p class="text-sm text-gray-600 text-center">
+                            Потоковая или пакетная обработка с минимальной задержкой
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-microchip text-3xl text-indigo-600"></i>
+                        </div>
+                        <h3 class="font-bold text-center mb-2">Встроенные системы</h3>
+                        <p class="text-sm text-gray-600 text-center">
+                            Оптимизировано для Arduino, ESP32, Raspberry Pi и подобных платформ
+                        </p>
+                    </div>
+                </div>
+
+                <div class="success-box p-4 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        Технические характеристики производительности:
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>Скорость встраивания:</strong> ~100x реального времени на современных CPU</li>
+                            <li><strong>Битрейт:</strong> 100-1000 bps в зависимости от конфигурации</li>
+                            <li><strong>Частотный диапазон:</strong> 18-20 кГц (настраиваемый)</li>
+                            <li><strong>Успешность декодирования:</strong> >99.9% в типичных условиях</li>
+                        </ul>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>Энергопотребление:</strong> < 10мВт в режиме прослушивания</li>
+                            <li><strong>Задержка пробуждения:</strong> < 50мс от сна до обнаружения команды</li>
+                            <li><strong>Дальность:</strong> 1-10 метров в зависимости от среды</li>
+                            <li><strong>Использование памяти:</strong> < 1КБ RAM для базового декодера</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture -->
+        <section id="architecture" class="mb-12">
+            <div class="subsection-header py-4 px-6 rounded-t-lg">
+                <h2 class="text-3xl font-bold">
+                    <i class="fas fa-sitemap mr-3"></i>
+                    4. Архитектура системы
+                </h2>
+            </div>
+            <div class="bg-white p-6 rounded-b-lg shadow-lg">
+                <p class="text-lg mb-6">
+                    Ultrasonic Agentics использует сложный конвейер обработки сигналов, состоящий из нескольких последовательных этапов. Каждый этап оптимизирован для обеспечения максимальной безопасности и надежности передачи данных.
+                </p>
+
+                <div class="space-y-6">
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="font-bold text-lg text-blue-600 mb-2">
+                            <i class="fas fa-lock mr-2"></i>
+                            1. Шифрование команд
+                        </h3>
+                        <p class="text-gray-700 mb-2">
+                            Использует алгоритм AES-256-GCM с производным ключом для обеспечения конфиденциальности и аутентификации данных.
+                        </p>
+                        <div class="code-block p-3 rounded">
+                            <pre><code># Пример генерации ключа
+import os
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from cryptography.hazmat.primitives import hashes
+
+# Генерация соли и ключа
+salt = os.urandom(16)
+kdf = PBKDF2HMAC(
+    algorithm=hashes.SHA256(),
+    length=32,
+    salt=salt,
+    iterations=100000,
+)
+key = kdf.derive(b"your-password")</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <h3 class="font-bold text-lg text-green-600 mb-2">
+                            <i class="fas fa-compress mr-2"></i>
+                            2. Двоичное кодирование
+                        </h3>
+                        <p class="text-gray-700 mb-2">
+                            Эффективная упаковка битов с коррекцией ошибок для повышения надежности передачи в условиях помех.
+                        </p>
+                        <div class="bg-gray-100 p-3 rounded text-sm">
+                            <strong>Методы коррекции ошибок:</strong>
+                            <ul class="list-disc list-inside mt-2">
+                                <li>Reed-Solomon коды для исправления множественных ошибок</li>
+                                <li>Циклическая избыточная проверка (CRC) для обнаружения повреждений</li>
+                                <li>Дублирование критических данных</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="border-l-4 border-yellow-500 pl-4">
+                        <h3 class="font-bold text-lg text-yellow-600 mb-2">
+                            <i class="fas fa-wave-square mr-2"></i>
+                            3. FSK Модуляция
+                        </h3>
+                        <p class="text-gray-700 mb-2">
+                            Частотная манипуляция (FSK) в диапазоне 18.5-19.5 кГц для представления цифровых данных.
+                        </p>
+                        <div class="bg-yellow-50 p-3 rounded">
+                            <p class="text-sm">
+                                <strong>FSK параметры:</strong><br>
+                                • Частота для бита '0': 18.5 кГц<br>
+                                • Частота для бита '1': 19.5 кГц<br>
+                                • Длительность бита: 10-50 мс (настраивается)<br>
+                                • Амплитуда: 0.05-0.2 от максимального уровня
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border-l-4 border-purple-500 pl-4">
+                        <h3 class="font-bold text-lg text-purple-600 mb-2">
+                            <i class="fas fa-magic mr-2"></i>
+                            4. Внедрение сигнала
+                        </h3>
+                        <p class="text-gray-700 mb-2">
+                            Психоакустическая маскировка для бесшовной интеграции ультразвукового сигнала в существующий аудиоконтент.
+                        </p>
+                        <div class="bg-purple-50 p-3 rounded text-sm">
+                            Техника маскировки учитывает спектральные характеристики исходного аудио и динамически подстраивает амплитуду ультразвукового сигнала для минимизации слышимых артефактов.
+                        </div>
+                    </div>
+
+                    <div class="border-l-4 border-red-500 pl-4">
+                        <h3 class="font-bold text-lg text-red-600 mb-2">
+                            <i class="fas fa-brain mr-2"></i>
+                            5. Адаптивное декодирование
+                        </h3>
+                        <p class="text-gray-700 mb-2">
+                            ML-улучшенное обнаружение и извлечение сигнала с автоматической адаптацией к условиям среды.
+                        </p>
+                        <div class="bg-red-50 p-3 rounded text-sm">
+                            Система машинного обучения анализирует характеристики входящего сигнала и автоматически оптимизирует параметры декодирования для максимальной точности.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Installation -->
+        <section id="installation" class="mb-12">
+            <div class="subsection-header py-4 px-6 rounded-t-lg">
+                <h2 class="text-3xl font-bold">
+                    <i class="fas fa-download mr-3"></i>
+                    5. Установка и настройка
+                </h2>
+            </div>
+            <div class="bg-white p-6 rounded-b-lg shadow-lg">
+                <p class="text-lg mb-6">
+                    Процесс установки Ultrasonic Agentics довольно прост и занимает всего несколько минут. Система поддерживает различные способы установки в зависимости от ваших потребностей.
+                </p>
+
+                <div class="mb-8">
+                    <h3 class="font-bold text-xl mb-4 text-blue-600">
+                        <i class="fas fa-cogs mr-2"></i>
+                        Системные требования
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="border border-gray-200 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">Минимальные требования:</h4>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li>Python 3.8 или выше</li>
+                                <li>1 ГБ оперативной памяти</li>
+                                <li>100 МБ свободного места на диске</li>
+                                <li>Звуковая карта с поддержкой 44.1 кГц</li>
+                            </ul>
+                        </div>
+                        <div class="border border-gray-200 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">Рекомендуемые требования:</h4>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li>Python 3.10+ с pip</li>
+                                <li>4 ГБ оперативной памяти</li>
+                                <li>1 ГБ свободного места на диске</li>
+                                <li>Высококачественная звуковая карта</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-bold text-xl mb-4 text-green-600">
+                        <i class="fas fa-terminal mr-2"></i>
+                        Установка из PyPI (рекомендуется)
+                    </h3>
+                    <p class="mb-3">Самый простой способ установки - использование пакетного менеджера pip:</p>
+                    <div class="code-block p-4 rounded mb-4">
+                        <pre><code># Базовая установка
+pip install ultrasonic-agentics
+
+# Установка со всеми дополнительными компонентами
+pip install ultrasonic-agentics[all]
+
+# Установка только для разработки
+pip install ultrasonic-agentics[dev]</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-bold text-xl mb-4 text-purple-600">
+                        <i class="fab fa-github mr-2"></i>
+                        Установка из исходного кода
+                    </h3>
+                    <p class="mb-3">Для разработчиков, которые хотят получить последнюю версию или внести свой вклад:</p>
+                    <div class="code-block p-4 rounded mb-4">
+                        <pre><code># Клонирование репозитория
+git clone https://github.com/ruvnet/ultrasonic.git
+cd ultrasonic
+
+# Создание виртуального окружения (рекомендуется)
+python -m venv venv
+source venv/bin/activate  # На Windows: venv\Scripts\activate
+
+# Установка в режиме разработки
+pip install -e ".[dev]"
+
+# Запуск тестов для проверки установки
+pytest</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-bold text-xl mb-4 text-orange-600">
+                        <i class="fas fa-docker mr-2"></i>
+                        Docker установка
+                    </h3>
+                    <p class="mb-3">Для изолированной среды выполнения:</p>
+                    <div class="code-block p-4 rounded mb-4">
+                        <pre><code># Создание Docker образа
+git clone https://github.com/ruvnet/ultrasonic.git
+cd ultrasonic
+docker build -t ultrasonic-agentics .
+
+# Запуск контейнера
+docker run -it --rm -v $(pwd):/workspace ultrasonic-agentics
+
+# Запуск API сервера в контейнере
+docker run -p 8000:8000 ultrasonic-agentics ultrasonic-api</code></pre>
+                    </div>
+                </div>
+
+                <div class="warning-box p-4 rounded-lg mb-6">
+                    <h3 class="font-bold text-lg mb-2">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        Проверка установки
+                    </h3>
+                    <p class="mb-3">После установки выполните следующие команды для проверки:</p>
+                    <div class="code-block p-3 rounded">
+                        <pre><code># Проверка версии
+ultrasonic-agentics --version
+
+# Проверка доступных команд
+ultrasonic-agentics --help
+
+# Тестовое встраивание (требуется аудиофайл)
+ultrasonic-agentics embed -i test.mp3 -o output.mp3 -c "hello world"</code></pre>
+                    </div>
+                </div>
+
+                <div class="info-box p-4 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2">
+                        <i class="fas fa-lightbulb mr-2"></i>
+                        Дополнительные зависимости
+                    </h3>
+                    <p class="mb-2">Для расширенной функциональности могут потребоваться дополнительные пакеты:</p>
+                    <div class="text-sm space-y-1">
+                        <p><strong>Для веб-интерфейса:</strong> <code>npm install</code> в директории <code>ui/</code></p>
+                        <p><strong>Для обработки видео:</strong> <code>pip install opencv-python</code></p>
+                        <p><strong>Для ML-функций:</strong> <code>pip install scikit-learn tensorflow</code></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLI Interface -->
+        <section id="cli" class="mb-12">
+            <div class="subsection-header py-4 px-6 rounded-t-lg">
+                <h2 class="text-3xl font-bold">
+                    <i class="fas fa-terminal mr-3"></i>
+                    6. Интерфейс командной строки
+                </h2>
+            </div>
+            <div class="bg-white p-6 rounded-b-lg shadow-lg">
+                <p class="text-lg mb-6">
+                    Ultrasonic Agentics предоставляет три основных инструмента командной строки для различных задач. Каждый инструмент оптимизирован для конкретных сценариев использования.
+                </p>
+
+                <div class="space-y-8">
+                    <!-- Main CLI Tool -->
+                    <div class="border-l-4 border-blue-500 pl-6">
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4">
+                            <i class="fas fa-microphone mr-2"></i>
+                            ultrasonic-agentics - Основной CLI
+                        </h3>
+                        <p class="mb-4">
+                            Главный инструмент для встраивания и декодирования команд в аудио и видео файлах.
+                        </p>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-3">Встраивание команд:</h4>
+                            <div class="code-block p-4 rounded mb-4">
+                                <pre><code># Базовое встраивание команды
+ultrasonic-agentics embed -i input.mp3 -o output.mp3 -c "command:execute" -k your-secret-key
+
+# Встраивание с кастомными параметрами частоты и амплитуды
+ultrasonic-agentics embed -i input.mp3 -o output.mp3 -c "deploy:v2" \
+  --freq 19000 --amplitude 0.05 --bit-duration 0.02
+
+# Встраивание в видеофайл
+ultrasonic-agentics embed -i video.mp4 -o video_with_command.mp4 -c "AI: process video"
+
+# Встраивание с автогенерацией ключа
+ultrasonic-agentics embed -i audio.wav -o secure_audio.wav -c "status:check" --generate-key</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-3">Декодирование команд:</h4>
+                            <div class="code-block p-4 rounded mb-4">
+                                <pre><code># Базовое декодирование
+ultrasonic-agentics decode -i output.mp3 -k your-secret-key
+
+# Декодирование с подробным выводом
+ultrasonic-agentics decode -i output.mp3 -k your-secret-key --verbose
+
+# Декодирование с сохранением логов
+ultrasonic-agentics decode -i audio.mp3 -k key --verbose --log-file decode.log
+
+# Пакетное декодирование нескольких файлов
+ultrasonic-agentics decode -i "*.mp3" -k your-secret-key --batch</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-3">Анализ аудио:</h4>
+                            <div class="code-block p-4 rounded mb-4">
+                                <pre><code># Базовый анализ на наличие ультразвуковых сигналов
+ultrasonic-agentics analyze -i audio.mp3
+
+# Анализ с генерацией спектрограммы
+ultrasonic-agentics analyze -i audio.mp3 --spectrogram --output report.png
+
+# Детальный анализ частотного спектра
+ultrasonic-agentics analyze -i audio.mp3 --detailed --freq-range 17000-21000
+
+# Анализ нескольких файлов с сравнением
+ultrasonic-agentics analyze -i "*.mp3" --compare --output analysis_report.html</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-lg mb-3">Конфигурация:</h4>
+                            <div class="code-block p-4 rounded mb-4">
+                                <pre><code># Настройка параметров по умолчанию
+ultrasonic-agentics config --freq 19000 --bit-rate 500
+
+# Просмотр текущей конфигурации
+ultrasonic-agentics config --show
+
+# Сброс настроек к значениям по умолчанию
+ultrasonic-agentics config --reset
+
+# Экспорт конфигурации в файл
+ultrasonic-agentics config --export config.json</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MCP Server -->
+                    <div class="border-l-4 border-green-500 pl-6">
+                        <h3 class="text-2xl font-bold text-green-600 mb-4">
+                            <i class="fas fa-server mr-2"></i>
+                            ultrasonic-server - MCP Сервер
+                        </h3>
+                        <p class="mb-4">
+                            Сервер для интеграции с AI агентами через Model Context Protocol (MCP).
+                        </p>
+
+                        <div class="code-block p-4 rounded mb-4">
+                            <pre><code># Запуск MCP сервера для интеграции с AI агентами
+ultrasonic-server
+
+# Запуск с кастомным портом
+ultrasonic-server --port 8080
+
+# Запуск с дополнительными параметрами логирования
+ultrasonic-server --port 8080 --log-level DEBUG --log-file mcp.log
+
+# Запуск в фоновом режиме
+ultrasonic-server --daemon --pid-file /var/run/ultrasonic-server.pid</code></pre>
+                        </div>
+
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">Интеграция с AI агентами:</h4>
+                            <p class="text-sm">
+                                MCP сервер позволяет AI агентам (таким как Claude) напрямую взаимодействовать с Ultrasonic Agentics для встраивания и декодирования команд в реальном времени.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- REST API Server -->
+                    <div class="border-l-4 border-purple-500 pl-6">
+                        <h3 class="text-2xl font-bold text-purple-600 mb-4">
+                            <i class="fas fa-cloud mr-2"></i>
+                            ultrasonic-api - REST API Сервер
+                        </h3>
+                        <p class="mb-4">
+                            HTTP API сервер для интеграции с веб-приложениями и другими системами.
+                        </p>
+
+                        <div class="code-block p-4 rounded mb-4">
+                            <pre><code># Запуск REST API сервера
+ultrasonic-api
+
+# Запуск с кастомной конфигурацией
+ultrasonic-api --host 0.0.0.0 --port 8000 --workers 4
+
+# Запуск в production режиме
+ultrasonic-api --host 0.0.0.0 --port 8000 --workers 8 --log-level INFO
+
+# Запуск с SSL сертификатом
+ultrasonic-api --ssl-cert cert.pem --ssl-key key.pem --port 443</code></pre>
+                        </div>
+
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-lg mb-3">Примеры использования API:</h4>
+                            <div class="code-block p-4 rounded">
+                                <pre><code># Встраивание через API
+curl -X POST http://localhost:8000/embed \
+  -F "audio=@input.mp3" \
+  -F "command=deploy:production" \
+  -F "key=your-secret-key"
+
+# Декодирование через API
+curl -X POST http://localhost:8000/decode \
+  -F "audio=@output.mp3" \
+  -F "key=your-secret-key"
+
+# Анализ аудио через API
+curl -X POST http://localhost:8000/analyze \
+  -F "audio=@suspicious.mp3" \
+  -H "Accept: application/json"</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Reference Table -->
+                <div class="mt-8">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-table mr-2"></i>
+                        Справочная таблица команд
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse border border-gray-300">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Команда</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Описание</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Пример</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2 font-mono text-sm">embed</td>
+                                    <td class="border border-gray-300 px-4 py-2">Скрыть команду в аудио</td>
+                                    <td class="border border-gray-300 px-4 py-2 font-mono text-xs">ultrasonic-agentics embed -i in.mp3 -o out.mp3 -c "cmd"</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2 font-mono text-sm">decode</td>
+                                    <td class="border border-gray-300 px-4 py-2">Извлечь скрытую команду</td>
+                                    <td class="border border-gray-300 px-4 py-2 font-mono text-xs">ultrasonic-agentics decode -i out.mp3 -k key</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2 font-mono text-sm">analyze</td>
+                                    <td class="border border-gray-300 px-4 py-2">Обнаружить ультразвуковой контент</td>
+                                    <td class="border border-gray-300 px-4 py-2 font-mono text-xs">ultrasonic-agentics analyze -i audio.mp3</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2 font-mono text-sm">config</td>
+                                    <td class="border border-gray-300 px-4 py-2">Управление настройками</td>
+                                    <td class="border border-gray-300 px-4 py-2 font-mono text-xs">ultrasonic-agentics config --show</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mt-6 info-box p-4 rounded-lg">
+                    <h4 class="font-bold text-lg mb-2">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Основные параметры:
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><code>-i, --input</code>: Входной аудио/видео файл</li>
+                            <li><code>-o, --output</code>: Путь к выходному файлу</li>
+                            <li><code>-c, --command</code>: Команда для встраивания</li>
+                            <li><code>-k, --key</code>: Ключ шифрования</li>
+                        </ul>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><code>--freq</code>: Ультразвуковая частота (по умолчанию: 18500 Гц)</li>
+                            <li><code>--amplitude</code>: Сила сигнала (0.0-1.0, по умолчанию: 0.1)</li>
+                            <li><code>--verbose</code>: Подробный вывод</li>
+                            <li><code>--help</code>: Справка по любой команде</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Python Examples -->
+        <section id="python-examples" class="mb-12">
+            <div class="subsection-header py-4 px-6 rounded-t-lg">
+                <h2 class="text-3xl font-bold">
+                    <i class="fab fa-python mr-3"></i>
+                    7. Программные примеры на Python
+                </h2>
+            </div>
+            <div class="bg-white p-6 rounded-b-lg shadow-lg">
+                <p class="text-lg mb-6">
+                    Ultrasonic Agentics предоставляет мощный Python API для интеграции в ваши приложения. Ниже приведены подробные примеры для различных сценариев использования.
+                </p>
+
+                <div class="space-y-8">
+                    <!-- Basic Usage -->
+                    <div class="border-l-4 border-blue-500 pl-6">
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4">
+                            <i class="fas fa-play mr-2"></i>
+                            Базовое использование
+                        </h3>
+                        <p class="mb-4">
+                            Простейший пример встраивания и декодирования команды в аудиофайле.
+                        </p>
+                        <div class="code-block p-4 rounded mb-4">
+                            <pre><code>from agentic_commands_stego import AudioEmbedder, AudioDecoder
+
+# Создание экземпляра для встраивания команд
+embedder = AudioEmbedder()
+
+# Встраивание команды в аудиофайл
+command = "execute: deploy_model --version 2.0"
+secure_audio = embedder.embed_from_file("original.mp3", command)
+
+# Сохранение результата
+secure_audio.export("output_with_command.mp3", format="mp3")
+
+# Создание декодера с тем же ключом шифрования
+decoder = AudioDecoder(embedder.cipher.key)
+
+# Декодирование скрытой команды
+decoded_command = decoder.decode_from_file("output_with_command.mp3")
+print(f"Скрытая команда: {decoded_command}")
+
+# Проверка успешности операции
+if decoded_command == command:
+    print("✅ Команда успешно встроена и декодирована!")
+else:
+    print("❌ Ошибка при декодировании команды")</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Encoding/Decoding -->
+                    <div class="border-l-4 border-green-500 pl-6">
+                        <h3 class="text-2xl font-bold text-green-600 mb-4">
+                            <i class="fas fa-cog mr-2"></i>
+                            Расширенное кодирование/декодирование
+                        </h3>
+                        <p class="mb-4">
+                            Пример с использованием пользовательских ключей шифрования и дополнительными параметрами.
+                        </p>
+                        <div class="code-block p-4 rounded mb-4">
+                            <pre><code>from agentic_commands_stego.embed.audio_embedder import AudioEmbedder
+from agentic_commands_stego.decode.audio_decoder import AudioDecoder
+import hashlib
+import os
+
+# Создание надежного ключа шифрования из пароля
+def create_secure_key(password: str, salt: bytes = None) -> bytes:
+    """Создание 32-байтного ключа из пароля"""
+    if salt is None:
+        salt = b'ultrasonic_salt_2024'  # В продакшене используйте случайную соль
+    
+    key = hashlib.pbkdf2_hmac('sha256', password.encode(), salt, 100000)
+    return key
+
+# Генерация ключа из пароля
+password = "my_secure_password_123"
+encryption_key = create_secure_key(password)
+
+# Создание embedder с пользовательским ключом
+embedder = AudioEmbedder(key=encryption_key)
+decoder = AudioDecoder(key=encryption_key)
+
+# Встраивание команды с дополнительными параметрами
+try:
+    success = embedder.embed_file(
+        input_file='examples/sample_audio.mp3',
+        output_file='secure_output.mp3',
+        command='execute: deploy --version 2.0 --environment production',
+        frequency=19000,        # Кастомная частота
+        amplitude=0.08,         # Кастомная амплитуда
+        bit_duration=0.015      # Кастомная длительность бита
+    )
+    
+    if success:
+        print("✅ Команда успешно встроена")
+        
+        # Декодирование с проверкой целостности
+        decoded_command = decoder.decode_file('secure_output.mp3')
+        
+        if decoded_command:
+            print(f"📝 Декодированная команда: {decoded_command}")
+        else:
+            print("❌ Не удалось декодировать команду")
+    else:
+        print("❌ Ошибка при встраивании команды")
+        
+except Exception as e:
+    print(f"🚫 Произошла ошибка: {e}")</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Real-time Processing -->
+                    <div class="border-l-4 border-yellow-500 pl-6">
+                        <h3 class="text-2xl font-bold text-yellow-600 mb-4">
+                            <i class="fas fa-broadcast-tower mr-2"></i>
+                            Обработка в реальном времени
+                        </h3>
+                        <p class="mb-4">
+                            Пример системы, которая слушает микрофон и реагирует на ультразвуковые команды в реальном времени.
+                        </p>
+                        <div class="code-block p-4 rounded mb-4">
+                            <pre><code>from agentic_commands_stego.decode.audio_decoder import AudioDecoder
+import pyaudio
+import numpy as np
+import threading
+import time
+
+class UltrasonicListener:
+    """Класс для прослушивания ультразвуковых команд в реальном времени"""
+    
+    def __init__(self, key: bytes):
+        self.decoder = AudioDecoder(key=key)
+        self.is_listening = False
+        self.audio_stream = None
+        self.command_handlers = {}
+        
+    def register_command_handler(self, command_prefix: str, handler_func):
+        """Регистрация обработчика для команд с определенным префиксом"""
+        self.command_handlers[command_prefix] = handler_func
+    
+    def on_command_detected(self, command: str):
+        """Обработка обнаруженной команды"""
+        print(f"🎯 Обнаружена команда: {command}")
+        
+        # Поиск подходящего обработчика
+        for prefix, handler in self.command_handlers.items():
+            if command.startswith(prefix):
+                try:
+                    handler(command)
+                    return
+                except Exception as e:
+                    print(f"❌ Ошибка при выполнении команды: {e}")
+                    
+        print(f"⚠️ Не найден обработчик для команды: {command}")
+    
+    def start_listening(self, device_index=None):
+        """Начало прослушивания микрофона"""
+        self.is_listening = True
+        
+        # Настройка PyAudio
+        p = pyaudio.PyAudio()
+        
+        # Параметры аудиопотока
+        chunk_size = 1024
+        sample_rate = 44100
+        channels = 1
+        
+        try:
+            self.audio_stream = p.open(
+                format=pyaudio.paFloat32,
+                channels=channels,
+                rate=sample_rate,
+                input=True,
+                input_device_index=device_index,
+                frames_per_buffer=chunk_size
+            )
+            
+            print("🎤 Начато прослушивание ультразвуковых команд...")
+            print("Нажмите Ctrl+C для остановки")
+            
+            # Буфер для накопления аудиоданных
+            audio_buffer = np.array([])
+            buffer_duration = 2.0  # секунды
+            buffer_size = int(sample_rate * buffer_duration)
+            
+            while self.is_listening:
+                # Чтение аудиоданных
+                data = self.audio_stream.read(chunk_size, exception_on_overflow=False)
+                audio_chunk = np.frombuffer(data, dtype=np.float32)
+                
+                # Добавление в буфер
+                audio_buffer = np.append(audio_buffer, audio_chunk)
+                
+                # Ограничение размера буфера
+                if len(audio_buffer) > buffer_size:
+                    audio_buffer = audio_buffer[-buffer_size:]
+                
+                # Попытка декодирования каждые 0.5 секунды
+                if len(audio_buffer) >= sample_rate // 2:
+                    try:
+                        command = self.decoder.decode_audio_data(
+                            audio_buffer, 
+                            sample_rate=sample_rate
+                        )
+                        if command:
+                            self.on_command_detected(command)
+                            # Очистка буфера после успешного декодирования
+                            audio_buffer = np.array([])
+                    except:
+                        pass  # Игнорируем ошибки декодирования
+                        
+        except KeyboardInterrupt:
+            print("\n🛑 Остановка прослушивания...")
+        finally:
+            self.stop_listening()
+            p.terminate()
+    
+    def stop_listening(self):
+        """Остановка прослушивания"""
+        self.is_listening = False
+        if self.audio_stream:
+            self.audio_stream.stop_stream()
+            self.audio_stream.close()
+
+# Пример использования
+def handle_execute_command(command: str):
+    """Обработчик команд execute"""
+    action = command.replace("execute:", "").strip()
+    print(f"🚀 Выполнение действия: {action}")
+    # Здесь может быть логика выполнения команды
+
+def handle_status_command(command: str):
+    """Обработчик команд статуса"""
+    print(f"📊 Запрос статуса: {command}")
+    # Здесь может быть логика получения статуса
+
+if __name__ == "__main__":
+    # Создание ключа (тот же, что использовался для встраивания)
+    key = create_secure_key("my_secure_password_123")
+    
+    # Создание слушателя
+    listener = UltrasonicListener(key)
+    
+    # Регистрация обработчиков команд
+    listener.register_command_handler("execute:", handle_execute_command)
+    listener.register_command_handler("status:", handle_status_command)
+    
+    # Начало прослушивания
+    listener.start_listening()</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Batch Processing -->
+                    <div class="border-l-4 border-purple-500 pl-6">
+                        <h3 class="text-2xl font-bold text-purple-600 mb-4">
+                            <i class="fas fa-layer-group mr-2"></i>
+                            Пакетная обработка файлов
+                        </h3>
+                        <p class="mb-4">
+                            Пример обработки множества файлов с прогресс-баром и обработкой ошибок.
+                        </p>
+                        <div class="code-block p-4 rounded mb-4">
+                            <pre><code>import os
+import glob
+from pathlib import Path
+from agentic_commands_stego.embed.audio_embedder import AudioEmbedder
+from agentic_commands_stego.decode.audio_decoder import AudioDecoder
+from tqdm import tqdm  # pip install tqdm для прогресс-бара
+
+class BatchProcessor:
+    """Класс для пакетной обработки аудиофайлов"""
+    
+    def __init__(self, key: bytes = None):
+        self.embedder = AudioEmbedder(key=key)
+        self.decoder = AudioDecoder(key=key or self.embedder.cipher.key)
+        self.supported_formats = ['.mp3', '.wav', '.ogg', '.flac', '.m4a']
+    
+    def embed_batch(self, input_dir: str, output_dir: str, command_template: str):
+        """Встраивание команд в пакет файлов"""
+        
+        # Получение списка аудиофайлов
+        audio_files = []
+        for ext in self.supported_formats:
+            audio_files.extend(glob.glob(os.path.join(input_dir, f"*{ext}")))
+        
+        if not audio_files:
+            print(f"❌ Не найдено аудиофайлов в директории: {input_dir}")
+            return
+        
+        # Создание выходной директории
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Статистика
+        success_count = 0
+        error_count = 0
+        
+        print(f"📁 Начинаем обработку {len(audio_files)} файлов...")
+        
+        # Обработка файлов с прогресс-баром
+        with tqdm(audio_files, desc="Встраивание команд") as pbar:
+            for i, audio_file in enumerate(pbar):
+                try:
+                    # Создание уникальной команды для каждого файла
+                    file_name = Path(audio_file).stem
+                    command = command_template.format(
+                        filename=file_name,
+                        index=i,
+                        timestamp=int(time.time())
+                    )
+                    
+                    # Генерация имени выходного файла
+                    output_file = os.path.join(
+                        output_dir, 
+                        f"secure_{Path(audio_file).name}"
+                    )
+                    
+                    # Встраивание команды
+                    success = self.embedder.embed_file(audio_file, output_file, command)
+                    
+                    if success:
+                        success_count += 1
+                        pbar.set_postfix({"✅": success_count, "❌": error_count})
+                    else:
+                        error_count += 1
+                        pbar.set_postfix({"✅": success_count, "❌": error_count})
+                        print(f"\n⚠️ Не удалось обработать: {audio_file}")
+                        
+                except Exception as e:
+                    error_count += 1
+                    pbar.set_postfix({"✅": success_count, "❌": error_count})
+                    print(f"\n🚫 Ошибка при обработке {audio_file}: {e}")
+        
+        print(f"\n📊 Завершена пакетная обработка:")
+        print(f"   ✅ Успешно обработано: {success_count}")
+        print(f"   ❌ Ошибок: {error_count}")
+    
+    def decode_batch(self, input_dir: str) -> dict:
+        """Декодирование команд из пакета файлов"""
+        
+        # Получение списка файлов
+        audio_files = []
+        for ext in self.supported_formats:
+            audio_files.extend(glob.glob(os.path.join(input_dir, f"*{ext}")))
+        
+        if not audio_files:
+            print(f"❌ Не найдено файлов в директории: {input_dir}")
+            return {}
+        
+        results = {}
+        
+        print(f"🔍 Декодирование {len(audio_files)} файлов...")
+        
+        with tqdm(audio_files, desc="Декодирование") as pbar:
+            for audio_file in pbar:
+                try:
+                    command = self.decoder.decode_file(audio_file)
+                    results[audio_file] = command
+                    
+                    if command:
+                        pbar.set_description(f"Найдена команда в {Path(audio_file).name}")
+                    
+                except Exception as e:
+                    results[audio_file] = f"ОШИБКА: {e}"
+        
+        return results
+    
+    def verify_batch(self, secure_dir: str, expected_commands: dict) -> dict:
+        """Проверка правильности встраивания команд"""
+        
+        decoded_results = self.decode_batch(secure_dir)
+        verification_results = {}
+        
+        for file_path, decoded_command in decoded_results.items():
+            file_name = Path(file_path).name.replace("secure_", "", 1)
+            expected_command = expected_commands.get(file_name)
+            
+            if expected_command and decoded_command == expected_command:
+                verification_results[file_name] = "✅ УСПЕХ"
+            elif decoded_command and decoded_command.startswith("ОШИБКА:"):
+                verification_results[file_name] = f"❌ {decoded_command}"
+            elif expected_command:
+                verification_results[file_name] = "❌ НЕСООТВЕТСТВИЕ"
+            else:
+                verification_results[file_name] = "⚠️ НЕТ ОЖИДАЕМОЙ КОМАНДЫ"
+        
+        return verification_results
+
+# Пример использования пакетной обработки
+if __name__ == "__main__":
+    # Создание процессора с безопасным ключом
+    key = create_secure_key("batch_processing_key_2024")
+    processor = BatchProcessor(key=key)
+    
+    # Директории для обработки
+    input_directory = "audio_files"
+    output_directory = "secure_audio_files"
+    
+    # Шаблон команды (будет подставлен для каждого файла)
+    command_template = "process_file: {filename} --id {index} --timestamp {timestamp}"
+    
+    # Пакетное встраивание команд
+    processor.embed_batch(input_directory, output_directory, command_template)
+    
+    # Пакетное декодирование для проверки
+    decoded_commands = processor.decode_batch(output_directory)
+    
+    # Вывод результатов
+    print("\n📋 Результаты декодирования:")
+    for file_path, command in decoded_commands.items():
+        file_name = Path(file_path).name
+        if command:
+            print(f"  📄 {file_name}: {command}")
+        else:
+            print(f"  📄 {file_name}: ❌ Команда не найдена")</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Custom Frequency Configuration -->
+                    <div class="border-l-4 border-red-500 pl-6">
+                        <h3 class="text-2xl font-bold text-red-600 mb-4">
+                            <i class="fas fa-sliders-h mr-2"></i>
+                            Настройка пользовательских частот
+                        </h3>
+                        <p class="mb-4">
+                            Пример настройки частотных параметров для различных условий и оборудования.
+                        </p>
+                        <div class="code-block p-4 rounded mb-4">
+                            <pre><code>from agentic_commands_stego.embed.ultrasonic_encoder import UltrasonicEncoder
+from agentic_commands_stego.decode.ultrasonic_decoder import UltrasonicDecoder
+import numpy as np
+
+class CustomFrequencyManager:
+    """Менеджер для работы с различными частотными конфигурациями"""
+    
+    # Предустановленные конфигурации для разных сценариев
+    PRESETS = {
+        'high_quality': {
+            'freq_0': 18000,    # Частота для бита '0'
+            'freq_1': 19500,    # Частота для бита '1'
+            'amplitude': 0.12,   # Высокая амплитуда
+            'bit_duration': 0.01, # Быстрая передача
+            'description': 'Высокое качество для идеальных условий'
+        },
+        'robust': {
+            'freq_0': 17500,
+            'freq_1': 18500,
+            'amplitude': 0.15,
+            'bit_duration': 0.03,  # Медленнее, но надежнее
+            'description': 'Надежная передача в шумных условиях'
+        },
+        'stealth': {
+            'freq_0': 19000,
+            'freq_1': 19800,
+            'amplitude': 0.03,    # Очень низкая амплитуда
+            'bit_duration': 0.05, # Очень медленно
+            'description': 'Максимальная скрытность'
+        },
+        'long_range': {
+            'freq_0': 16000,    # Более низкие частоты для дальности
+            'freq_1': 17000,
+            'amplitude': 0.20,   # Максимальная амплитуда
+            'bit_duration': 0.04,
+            'description': 'Максимальная дальность передачи'
+        }
+    }
+    
+    def __init__(self, preset_name: str = 'high_quality'):
+        self.current_preset = preset_name
+        self.config = self.PRESETS[preset_name].copy()
+        self.encoder = None
+        self.decoder = None
+        self._update_codecs()
+    
+    def _update_codecs(self):
+        """Обновление кодеков с текущими настройками"""
+        self.encoder = UltrasonicEncoder(
+            freq_0=self.config['freq_0'],
+            freq_1=self.config['freq_1'],
+            amplitude=self.config['amplitude'],
+            bit_duration=self.config['bit_duration']
+        )
+        
+        self.decoder = UltrasonicDecoder(
+            freq_0=self.config['freq_0'],
+            freq_1=self.config['freq_1'],
+            detection_threshold=self.config['amplitude'] * 0.3  # 30% от амплитуды
+        )
+    
+    def set_preset(self, preset_name: str):
+        """Установка предустановленной конфигурации"""
+        if preset_name not in self.PRESETS:
+            raise ValueError(f"Неизвестный пресет: {preset_name}")
+        
+        self.current_preset = preset_name
+        self.config = self.PRESETS[preset_name].copy()
+        self._update_codecs()
+        
+        print(f"📊 Установлен пресет '{preset_name}': {self.config['description']}")
+        self.print_config()
+    
+    def customize_frequencies(self, freq_0: int, freq_1: int, 
+                            amplitude: float = None, bit_duration: float = None):
+        """Ручная настройка частот"""
+        
+        # Проверка частот
+        if not (1000 <= freq_0 <= 22000) or not (1000 <= freq_1 <= 22000):
+            raise ValueError("Частоты должны быть в диапазоне 1000-22000 Гц")
+        
+        if abs(freq_0 - freq_1) < 500:
+            print("⚠️ Предупреждение: Разность частот менее 500 Гц может снизить надежность")
+        
+        self.config['freq_0'] = freq_0
+        self.config['freq_1'] = freq_1
+        
+        if amplitude is not None:
+            if not (0.01 <= amplitude <= 0.5):
+                raise ValueError("Амплитуда должна быть в диапазоне 0.01-0.5")
+            self.config['amplitude'] = amplitude
+        
+        if bit_duration is not None:
+            if not (0.005 <= bit_duration <= 0.1):
+                raise ValueError("Длительность бита должна быть в диапазоне 0.005-0.1 сек")
+            self.config['bit_duration'] = bit_duration
+        
+        self._update_codecs()
+        self.current_preset = 'custom'
+        
+        print("🔧 Установлена пользовательская конфигурация:")
+        self.print_config()
+    
+    def print_config(self):
+        """Вывод текущей конфигурации"""
+        print(f"   🎵 Частота '0': {self.config['freq_0']} Гц")
+        print(f"   🎵 Частота '1': {self.config['freq_1']} Гц")
+        print(f"   🔊 Амплитуда: {self.config['amplitude']}")
+        print(f"   ⏱️ Длительность бита: {self.config['bit_duration']} сек")
+        
+        # Вычисление битрейта
+        bitrate = 1 / self.config['bit_duration']
+        print(f"   📊 Битрейт: ~{bitrate:.0f} бит/сек")
+    
+    def test_configuration(self, test_data: str = "test_config_123") -> bool:
+        """Тестирование текущей конфигурации"""
+        print(f"🧪 Тестирование конфигурации с данными: '{test_data}'")
+        
+        try:
+            # Кодирование тестовых данных
+            encoded_signal = self.encoder.encode_payload(test_data.encode())
+            print(f"   ✅ Кодирование успешно: {len(encoded_signal)} сэмплов")
+            
+            # Декодирование
+            decoded_data = self.decoder.decode_payload(encoded_signal)
+            
+            if decoded_data and decoded_data.decode() == test_data:
+                print("   ✅ Декодирование успешно")
+                print("   🎯 Конфигурация работает корректно")
+                return True
+            else:
+                print("   ❌ Ошибка декодирования")
+                return False
+                
+        except Exception as e:
+            print(f"   🚫 Ошибка тестирования: {e}")
+            return False
+    
+    def analyze_frequency_spectrum(self, test_signal: np.ndarray, 
+                                 sample_rate: int = 44100) -> dict:
+        """Анализ частотного спектра сигнала"""
+        
+        # Быстрое преобразование Фурье
+        fft = np.fft.fft(test_signal)
+        freqs = np.fft.fftfreq(len(fft), 1/sample_rate)
+        
+        # Получение амплитуд
+        amplitudes = np.abs(fft)
+        
+        # Анализ пиков на целевых частотах
+        freq_0_idx = np.argmin(np.abs(freqs - self.config['freq_0']))
+        freq_1_idx = np.argmin(np.abs(freqs - self.config['freq_1']))
+        
+        analysis = {
+            'freq_0_amplitude': amplitudes[freq_0_idx],
+            'freq_1_amplitude': amplitudes[freq_1_idx],
+            'max_amplitude': np.max(amplitudes),
+            'signal_to_noise_ratio': np.max(amplitudes) / np.mean(amplitudes),
+            'frequency_separation': abs(self.config['freq_1'] - self.config['freq_0'])
+        }
+        
+        return analysis
+
+# Пример использования менеджера частот
+if __name__ == "__main__":
+    
+    # Создание менеджера частот
+    freq_manager = CustomFrequencyManager()
+    
+    # Тестирование различных пресетов
+    for preset_name in freq_manager.PRESETS.keys():
+        print(f"\n🔄 Тестирование пресета: {preset_name}")
+        freq_manager.set_preset(preset_name)
+        success = freq_manager.test_configuration()
+        print("="*60)
+    
+    # Пользовательская настройка для низкокачественных динамиков
+    print("\n🎛️ Настройка для низкокачественных динамиков:")
+    freq_manager.customize_frequencies(
+        freq_0=15000,     # Пониженные частоты
+        freq_1=16500,
+        amplitude=0.25,   # Увеличенная амплитуда
+        bit_duration=0.06 # Увеличенная длительность
+    )
+    
+    # Тестирование пользовательской конфигурации
+    success = freq_manager.test_configuration("custom_test_data")
+    
+    if success:
+        print("🎉 Пользовательская конфигурация готова к использованию!")
+    else:
+        print("⚠️ Пользовательская конфигурация требует доработки")</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 info-box p-4 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2">
+                        <i class="fas fa-lightbulb mr-2"></i>
+                        Советы по программированию с Ultrasonic Agentics:
+                    </h3>
+                    <ul class="list-disc list-inside space-y-2 text-sm">
+                        <li><strong>Управление ключами:</strong> Всегда используйте безопасное хранение ключей шифрования</li>
+                        <li><strong>Обработка ошибок:</strong> Implement comprehensive error handling для production кода</li>
+                        <li><strong>Производительность:</strong> Используйте пакетную обработку для больших объемов данных</li>
+                        <li><strong>Тестирование:</strong> Всегда тестируйте конфигурации перед развертыванием</li>
+                        <li><strong>Логирование:</strong> Ведите подробные логи для отладки и мониторинга</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Web Interface -->
+        <section id="web-interface" class="mb-12">
+            <div class="subsection-header py-4 px-6 rounded-t-lg">
+                <h2 class="text-3xl font-bold">
+                    <i class="fas fa-globe mr-3"></i>
+                    8. Веб-интерфейс
+                </h2>
+            </div>
+            <div class="bg-white p-6 rounded-b-lg shadow-lg">
+                <p class="text-lg mb-6">
+                    Ultrasonic Agentics включает современный веб-интерфейс на React, который предоставляет удобный графический интерфейс для всех основных функций системы. Это идеальное решение для пользователей, предпочитающих визуальный интерфейс командной строке.
+                </p>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-4">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Запуск веб-интерфейса
+                    </h3>
+                    <div class="code-block p-4 rounded mb-4">
+                        <pre><code># Переход в директорию с веб-интерфейсом
+cd ui
+
+# Установка зависимостей (выполняется один раз)
+npm install
+
+# Запуск в режиме разработки
+npm run dev
+
+# Запуск в production режиме
+npm run build
+npm run preview</code></pre>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p class="text-sm">
+                            <strong>📍 Адрес:</strong> После запуска веб-интерфейс будет доступен по адресу 
+                            <code>http://localhost:5173</code>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="border border-gray-200 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-green-600">
+                            <i class="fas fa-microphone mr-2"></i>
+                            Запись и встраивание в реальном времени
+                        </h4>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Запись аудио через микрофон браузера</li>
+                            <li>Мгновенное встраивание команд</li>
+                            <li>Предварительное прослушивание результата</li>
+                            <li>Настройка качества записи</li>
+                        </ul>
+                    </div>
+
+                    <div class="border border-gray-200 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-purple-600">
+                            <i class="fas fa-file-upload mr-2"></i>
+                            Drag-and-Drop обработка файлов
+                        </h4>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Перетаскивание аудио/видео файлов</li>
+                            <li>Поддержка пакетной обработки</li>
+                            <li>Автоматическое определение формата</li>
+                            <li>Прогресс-бар для больших файлов</li>
+                        </ul>
+                    </div>
+
+                    <div class="border border-gray-200 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-yellow-600">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            Анализ частот с визуализацией
+                        </h4>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Интерактивные спектрограммы</li>
+                            <li>Анализ ультразвукового спектра</li>
+                            <li>Детекция скрытых сигналов</li>
+                            <li>Экспорт результатов анализа</li>
+                        </ul>
+                    </div>
+
+                    <div class="border border-gray-200 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-red-600">
+                            <i class="fas fa-cogs mr-2"></i>
+                            Конфигурация параметров
+                        </h4>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Настройка частот и амплитуд</li>
+                            <li>Управление ключами шифрования</li>
+                            <li>Предустановленные профили</li>
+                            <li>Сохранение пользовательских настроек</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-green-600 mb-4">
+                        <i class="fas fa-desktop mr-2"></i>
+                        Основные возможности интерфейса
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg mb-2">🎛️ Панель управления</h4>
+                            <p class="text-sm mb-2">
+                                Центральная панель с быстрым доступом ко всем основным функциям системы.
+                            </p>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                                <span class="bg-blue-100 px-2 py-1 rounded">Встраивание</span>
+                                <span class="bg-green-100 px-2 py-1 rounded">Декодирование</span>
+                                <span class="bg-yellow-100 px-2 py-1 rounded">Анализ</span>
+                                <span class="bg-purple-100 px-2 py-1 rounded">Настройки</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg mb-2">📊 Мониторинг качества сигнала</h4>
+                            <p class="text-sm mb-2">
+                                Реальновременный мониторинг качества ультразвукового сигнала и достоверности декодирования.
+                            </p>
+                            <div class="text-xs space-y-1">
+                                <div class="flex justify-between">
+                                    <span>Отношение сигнал/шум:</span>
+                                    <span class="font-mono">25.3 дБ</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Достоверность декодирования:</span>
+                                    <span class="font-mono text-green-600">98.7%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg mb-2">🔐 Управление безопасностью</h4>
+                            <p class="text-sm mb-2">
+                                Интуитивное управление ключами шифрования и параметрами безопасности.
+                            </p>
+                            <div class="text-xs space-y-1">
+                                <p>• Генерация криптографически стойких ключей</p>
+                                <p>• Импорт/экспорт ключей</p>
+                                <p>• Проверка целостности данных</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-2xl font-bold text-purple-600 mb-4">
+                        <i class="fas fa-code mr-2"></i>
+                        Интеграция с REST API
+                    </h3>
+                    <p class="mb-4">
+                        Веб-интерфейс использует REST API для взаимодействия с backend. Вы можете использовать те же API endpoints в своих приложениях:
+                    </p>
+                    <div class="code-block p-4 rounded mb-4">
+                        <pre><code># Запуск API сервера
+ultrasonic-api --host 0.0.0.0 --port 8000
+
+# Примеры API запросов из веб-интерфейса:
+
+# Встраивание команды
+curl -X POST http://localhost:8000/embed \
+  -F "audio=@recording.wav" \
+  -F "command=hello_world" \
+  -F "frequency=18500" \
+  -F "amplitude=0.1"
+
+# Декодирование команды
+curl -X POST http://localhost:8000/decode \
+  -F "audio=@secure_audio.wav" \
+  -F "key=your_encryption_key"
+
+# Анализ аудио
+curl -X POST http://localhost:8000/analyze \
+  -F "audio=@test.mp3" \
+  -H "Accept: application/json"
+
+# Получение конфигурации
+curl http://localhost:8000/config
+
+# Обновление настроек
+curl -X PUT http://localhost:8000/config \
+  -H "Content-Type: application/json" \
+  -d '{"frequency": 19000, "amplitude": 0.12}'</code></pre>
+                    </div>
+                </div>
+
+                <div class="warning-box p-4 rounded-lg mb-6">
+                    <h3 class="font-bold text-lg mb-2">
+                        <i class="fas fa-shield-alt mr-2"></i>
+                        Безопасность веб-интерфейса
+                    </h3>
+                    <div class="text-sm space-y-2">
+                        <p><strong>🔒 HTTPS:</strong> Используйте HTTPS в production для защиты передаваемых данных</p>
+                        <p><strong>🔑 Аутентификация:</strong> Настройте аутентификацию для доступа к интерфейсу</p>
+                        <p><strong>🌐 CORS:</strong> Настройте CORS policy для безопасного cross-origin доступа</p>
+                        <p><strong>📁 Файлы:</strong> Загружаемые файлы временно хранятся в памяти и не сохраняются на сервере</p>
+                    </div>
+                </div>
+
+                <div class="success-box p-4 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2">
+                        <i class="fas fa-mobile-alt mr-2"></i>
+                        Мобильная совместимость
+                    </h3>
+                    <p class="text-sm">
+                        Веб-интерфейс полностью адаптирован для мобильных устройств и планшетов. Поддерживаются сенсорные жесты, адаптивная разметка и оптимизированное управление для сенсорных экранов.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MCP Integration -->
+        <section id="mcp-integration" class="mb-12">
+            <div class="subsection-header py-4 px-6 rounded-t-lg">
+                <h2 class="text-3xl font-bold">
+                    <i class="fas fa-plug mr-3"></i>
+                    9. MCP интеграция
+                </h2>
+            </div>
+            <div class="bg-white p-6 rounded-b-lg shadow-lg">
+                <p class="text-lg mb-6">
+                    Model Context Protocol (MCP) интеграция позволяет AI агентам (таким как Claude) напрямую взаимодействовать с Ultrasonic Agentics. Это открывает новые возможности для автоматизации и интеллектуального управления ультразвуковыми коммуникациями.
+                </p>
+
+                <div class="info-box p-4 rounded-lg mb-8">
+                    <h3 class="font-bold text-lg mb-2">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Что такое MCP?
+                    </h3>
+                    <p class="text-sm">
+                        Model Context Protocol - это стандартный протокол, который позволяет AI моделям взаимодействовать с внешними инструментами и сервисами. 
+                        Через MCP, AI агенты могут выполнять сложные задачи, используя специализированные инструменты без необходимости прямого программирования.
+                    </p>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-4">
+                        <i class="fas fa-server mr-2"></i>
+                        Запуск MCP сервера
+                    </h3>
+                    <div class="code-block p-4 rounded mb-4">
+                        <pre><code># Базовый запуск MCP сервера
+ultrasonic-server
+
+# Запуск с кастомным портом и логированием
+ultrasonic-server --port 8080 --log-level DEBUG
+
+# Запуск в фоновом режиме
+ultrasonic-server --daemon --log-file /var/log/ultrasonic-mcp.log
+
+# Проверка статуса сервера
+curl http://localhost:8080/health</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-green-600 mb-4">
+                        <i class="fas fa-robot mr-2"></i>
+                        Использование с AI агентами
+                    </h3>
+                    <p class="mb-4">
+                        После запуска MCP сервера, AI агенты могут использовать Ultrasonic Agentics через стандартные MCP команды:
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h4 class="font-semibold text-lg mb-2">Встраивание команд через AI:</h4>
+                            <div class="code-block p-3 rounded mb-2">
+                                <pre><code># AI агент может выполнить:
+ultrasonic-agentics encode "AI: process customer data" audio.mp3</code></pre>
+                            </div>
+                            <p class="text-sm text-gray-600">
+                                AI агент автоматически обработает аудиофайл и встроит указанную команду
+                            </p>
+                        </div>
+
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h4 class="font-semibold text-lg mb-2">Декодирование через AI:</h4>
+                            <div class="code-block p-3 rounded mb-2">
+                                <pre><code># AI агент может выполнить:
+ultrasonic-agentics decode audio.mp3</code></pre>
+                            </div>
+                            <p class="text-sm text-gray-600">
+                                AI агент извлечет скрытую команду и может принять решение о дальнейших действиях
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-purple-600 mb-4">
+                        <i class="fas fa-workflow mr-2"></i>
+                        Сценарии использования с AI
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="border border-gray-200 p-4 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2 text-blue-600">
+                                <i class="fas fa-brain mr-2"></i>
+                                Интеллектуальная обработка контента
+                            </h4>
+                            <p class="text-sm mb-3">
+                                AI анализирует медиаконтент и автоматически встраивает соответствующие команды на основе содержания.
+                            </p>
+                            <div class="text-xs bg-blue-50 p-2 rounded">
+                                <strong>Пример:</strong> AI обнаруживает в видео сцену с собакой и встраивает команду "animal_detected: dog"
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 p-4 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2 text-green-600">
+                                <i class="fas fa-shield-alt mr-2"></i>
+                                Автоматическая верификация
+                            </h4>
+                            <p class="text-sm mb-3">
+                                AI автоматически проверяет медиафайлы на наличие скрытых команд и анализирует их на предмет безопасности.
+                            </p>
+                            <div class="text-xs bg-green-50 p-2 rounded">
+                                <strong>Пример:</strong> AI сканирует загруженные файлы и предупреждает о подозрительных командах
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 p-4 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2 text-yellow-600">
+                                <i class="fas fa-cogs mr-2"></i>
+                                Адаптивная конфигурация
+                            </h4>
+                            <p class="text-sm mb-3">
+                                AI оптимизирует параметры кодирования на основе характеристик входного аудио и целевой среды.
+                            </p>
+                            <div class="text-xs bg-yellow-50 p-2 rounded">
+                                <strong>Пример:</strong> AI выбирает оптимальные частоты для музыкальных треков с богатым спектром
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 p-4 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2 text-red-600">
+                                <i class="fas fa-chart-line mr-2"></i>
+                                Интеллектуальная аналитика
+                            </h4>
+                            <p class="text-sm mb-3">
+                                AI анализирует эффективность передачи команд и предлагает улучшения для конкретных сценариев.
+                            </p>
+                            <div class="text-xs bg-red-50 p-2 rounded">
+                                <strong>Пример:</strong> AI рекомендует изменить амплитуду для лучшей передачи в шумной среде
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-orange-600 mb-4">
+                        <i class="fas fa-link mr-2"></i>
+                        Интеграция с Claude
+                    </h3>
+                    <p class="mb-4">
+                        Пример настройки интеграции с Claude AI через MCP:
+                    </p>
+                    <div class="code-block p-4 rounded mb-4">
+                        <pre><code># Конфигурационный файл для Claude (.claude_config.json)
+{
+  "mcp_servers": {
+    "ultrasonic": {
+      "command": "ultrasonic-server",
+      "args": ["--port", "8080"],
+      "env": {
+        "ULTRASONIC_LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}
+
+# Пример диалога с Claude:
+# Пользователь: "Встрой команду 'status_check' в файл audio.mp3"
+# Claude: "Я встрою команду в ваш аудиофайл используя ultrasonic-agentics..."
+# [Claude выполняет команду через MCP]
+# Claude: "Команда успешно встроена. Файл сохранен как audio_with_command.mp3"</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-2xl font-bold text-indigo-600 mb-4">
+                        <i class="fas fa-puzzle-piece mr-2"></i>
+                        Расширенные возможности MCP
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-indigo-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">🔄 Пайплайны обработки</h4>
+                            <p class="text-sm mb-2">
+                                AI может создавать сложные пайплайны обработки, комбинируя множественные операции:
+                            </p>
+                            <div class="code-block p-2 rounded text-xs">
+                                <pre>1. Анализ входного аудио
+2. Выбор оптимальных параметров
+3. Встраивание команды
+4. Верификация результата
+5. Генерация отчета</pre>
+                            </div>
+                        </div>
+
+                        <div class="bg-indigo-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">📊 Аналитические отчеты</h4>
+                            <p class="text-sm">
+                                AI может генерировать подробные отчеты о качестве встраивания, 
+                                вероятности обнаружения и рекомендации по улучшению.
+                            </p>
+                        </div>
+
+                        <div class="bg-indigo-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">🎯 Контекстно-aware обработка</h4>
+                            <p class="text-sm">
+                                AI учитывает контекст использования (например, тип медиа, целевая аудитория, 
+                                условия воспроизведения) для оптимизации параметров.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box p-4 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        Важные замечания по MCP интеграции
+                    </h3>
+                    <div class="text-sm space-y-2">
+                        <p><strong>🔐 Безопасность:</strong> MCP сервер должен быть защищен от несанкционированного доступа</p>
+                        <p><strong>📈 Производительность:</strong> При высокой нагрузке рассмотрите масштабирование сервера</p>
+                        <p><strong>🔄 Мониторинг:</strong> Ведите логи всех MCP операций для аудита и отладки</p>
+                        <p><strong>⚡ Ограничения:</strong> Установите лимиты на размер файлов и частоту запросов</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Features -->
+        <section id="advanced" class="mb-12">
+            <div class="subsection-header py-4 px-6 rounded-t-lg">
+                <h2 class="text-3xl font-bold">
+                    <i class="fas fa-rocket mr-3"></i>
+                    10. Расширенные возможности
+                </h2>
+            </div>
+            <div class="bg-white p-6 rounded-b-lg shadow-lg">
+                <p class="text-lg mb-6">
+                    Ultrasonic Agentics предлагает множество расширенных возможностей для профессиональных разработчиков и специфических случаев использования. Эти функции обеспечивают максимальную гибкость и производительность системы.
+                </p>
+
+                <div class="space-y-8">
+                    <!-- Streaming API -->
+                    <div class="border-l-4 border-blue-500 pl-6">
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4">
+                            <i class="fas fa-stream mr-2"></i>
+                            Потоковая обработка (Streaming API)
+                        </h3>
+                        <p class="mb-4">
+                            Streaming API позволяет обрабатывать аудиоданные в реальном времени без необходимости загрузки полных файлов в память.
+                        </p>
+                        
+                        <div class="code-block p-4 rounded mb-4">
+                            <pre><code># Пример потоковой обработки аудио
+from agentic_commands_stego import StreamEncoder, StreamDecoder
+import pyaudio
+import threading
+import queue
+
+class RealTimeProcessor:
+    def __init__(self, key: bytes):
+        self.encoder = StreamEncoder(key=key)
+        self.decoder = StreamDecoder(key=key)
+        self.command_queue = queue.Queue()
+        self.output_stream = None
+        self.is_processing = False
+        
+    def start_real_time_embedding(self, input_device=None, output_device=None):
+        """Запуск встраивания команд в реальном времени"""
+        
+        p = pyaudio.PyAudio()
+        
+        # Параметры аудио
+        chunk_size = 1024
+        sample_rate = 44100
+        channels = 1
+        
+        # Входной поток (микрофон)
+        input_stream = p.open(
+            format=pyaudio.paFloat32,
+            channels=channels,
+            rate=sample_rate,
+            input=True,
+            input_device_index=input_device,
+            frames_per_buffer=chunk_size
+        )
+        
+        # Выходной поток (динамики)
+        output_stream = p.open(
+            format=pyaudio.paFloat32,
+            channels=channels,
+            rate=sample_rate,
+            output=True,
+            output_device_index=output_device,
+            frames_per_buffer=chunk_size
+        )
+        
+        self.is_processing = True
+        print("🎙️ Начата потоковая обработка (Ctrl+C для остановки)")
+        
+        try:
+            while self.is_processing:
+                # Чтение аудиоданных
+                audio_data = input_stream.read(chunk_size, exception_on_overflow=False)
+                
+                # Проверка наличия команд для встраивания
+                command = None
+                try:
+                    command = self.command_queue.get_nowait()
+                except queue.Empty:
+                    pass
+                
+                # Обработка аудиочанка
+                processed_chunk = self.encoder.process_chunk(audio_data, command)
+                
+                # Вывод обработанного аудио
+                output_stream.write(processed_chunk)
+                
+        except KeyboardInterrupt:
+            print("\n🛑 Остановка потоковой обработки")
+        finally:
+            input_stream.stop_stream()
+            input_stream.close()
+            output_stream.stop_stream()
+            output_stream.close()
+            p.terminate()
+    
+    def add_command_to_queue(self, command: str):
+        """Добавление команды в очередь для встраивания"""
+        self.command_queue.put(command)
+        print(f"📝 Команда добавлена в очередь: {command}")
+
+# Использование потокового процессора
+processor = RealTimeProcessor(encryption_key)
+
+# Запуск в отдельном потоке
+processing_thread = threading.Thread(
+    target=processor.start_real_time_embedding
+)
+processing_thread.daemon = True
+processing_thread.start()
+
+# Добавление команд во время работы
+processor.add_command_to_queue("status: system_online")
+processor.add_command_to_queue("command: start_monitoring")
+
+# Ожидание завершения
+processing_thread.join()</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Video Support -->
+                    <div class="border-l-4 border-green-500 pl-6">
+                        <h3 class="text-2xl font-bold text-green-600 mb-4">
+                            <i class="fas fa-video mr-2"></i>
+                            Поддержка видеофайлов
+                        </h3>
+                        <p class="mb-4">
+                            Ultrasonic Agentics может работать с видеофайлами, встраивая команды в аудиодорожку без изменения видеоряда.
+                        </p>
+                        
+                        <div class="code-block p-4 rounded mb-4">
+                            <pre><code># Работа с видеофайлами
+from agentic_commands_stego import VideoEmbedder, VideoDecoder
+import cv2
+
+class VideoProcessor:
+    def __init__(self, key: bytes = None):
+        self.embedder = VideoEmbedder(key=key)
+        self.decoder = VideoDecoder(key=key or self.embedder.cipher.key)
+    
+    def embed_in_video(self, input_video: str, output_video: str, 
+                      command: str, preserve_quality: bool = True):
+        """Встраивание команды в видеофайл"""
+        
+        print(f"🎬 Обработка видео: {input_video}")
+        
+        # Встраивание команды
+        success = self.embedder.embed_from_file(
+            input_file=input_video,
+            output_file=output_video,
+            command=command,
+            preserve_video_quality=preserve_quality
+        )
+        
+        if success:
+            print(f"✅ Команда встроена в видео: {output_video}")
+            
+            # Проверка качества видео
+            self._compare_video_quality(input_video, output_video)
+        else:
+            print("❌ Ошибка при встраивании команды в видео")
+        
+        return success
+    
+    def decode_from_video(self, video_file: str) -> str:
+        """Извлечение команды из видеофайла"""
+        
+        print(f"🔍 Декодирование команды из видео: {video_file}")
+        
+        command = self.decoder.decode_from_file(video_file)
+        
+        if command:
+            print(f"📝 Найдена команда: {command}")
+        else:
+            print("❌ Команда не найдена в видео")
+        
+        return command
+    
+    def _compare_video_quality(self, original: str, processed: str):
+        """Сравнение качества оригинального и обработанного видео"""
+        
+        cap_orig = cv2.VideoCapture(original)
+        cap_proc = cv2.VideoCapture(processed)
+        
+        # Получение базовой информации
+        orig_fps = cap_orig.get(cv2.CAP_PROP_FPS)
+        proc_fps = cap_proc.get(cv2.CAP_PROP_FPS)
+        
+        orig_frames = int(cap_orig.get(cv2.CAP_PROP_FRAME_COUNT))
+        proc_frames = int(cap_proc.get(cv2.CAP_PROP_FRAME_COUNT))
+        
+        print(f"📊 Сравнение качества видео:")
+        print(f"   FPS: {orig_fps:.1f} → {proc_fps:.1f}")
+        print(f"   Кадры: {orig_frames} → {proc_frames}")
+        
+        if abs(orig_fps - proc_fps) < 0.1 and orig_frames == proc_frames:
+            print("   ✅ Качество видео сохранено")
+        else:
+            print("   ⚠️ Обнаружены изменения в качестве видео")
+        
+        cap_orig.release()
+        cap_proc.release()
+    
+    def batch_process_videos(self, video_list: list, command_template: str):
+        """Пакетная обработка видеофайлов"""
+        
+        results = {}
+        
+        for i, video_file in enumerate(video_list):
+            try:
+                # Создание уникальной команды
+                command = command_template.format(index=i, filename=video_file)
+                output_file = f"secure_{video_file}"
+                
+                # Обработка видео
+                success = self.embed_in_video(video_file, output_file, command)
+                results[video_file] = {"success": success, "output": output_file}
+                
+            except Exception as e:
+                results[video_file] = {"success": False, "error": str(e)}
+        
+        return results
+
+# Пример использования с видео
+video_processor = VideoProcessor()
+
+# Встраивание команды в видео
+video_processor.embed_in_video(
+    input_video="sample_video.mp4",
+    output_video="secure_video.mp4",
+    command="AI: analyze frames for objects"
+)
+
+# Декодирование команды из видео
+decoded_command = video_processor.decode_from_video("secure_video.mp4")
+
+# Пакетная обработка видео
+video_files = ["video1.mp4", "video2.avi", "video3.mov"]
+results = video_processor.batch_process_videos(
+    video_files, 
+    "process_video_{index}: {filename}"
+)</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Machine Learning Enhancement -->
+                    <div class="border-l-4 border-yellow-500 pl-6">
+                        <h3 class="text-2xl font-bold text-yellow-600 mb-4">
+                            <i class="fas fa-brain mr-2"></i>
+                            Улучшения на основе машинного обучения
+                        </h3>
+                        <p class="mb-4">
+                            Система использует алгоритмы машинного обучения для повышения точности декодирования и адаптации к различным условиям.
+                        </p>
+                        
+                        <div class="code-block p-4 rounded mb-4">
+                            <pre><code># ML-улучшенный декодер
+from agentic_commands_stego.ml import MLEnhancedDecoder, NoiseProfiler
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+
+class IntelligentDecoder:
+    def __init__(self, key: bytes):
+        self.base_decoder = AudioDecoder(key=key)
+        self.ml_decoder = MLEnhancedDecoder(key=key)
+        self.noise_profiler = NoiseProfiler()
+        self.confidence_threshold = 0.8
+        
+    def decode_with_ml_enhancement(self, audio_file: str) -> dict:
+        """Декодирование с ML-улучшениями"""
+        
+        result = {
+            'command': None,
+            'confidence': 0.0,
+            'method': None,
+            'noise_profile': None,
+            'recommendations': []
+        }
+        
+        # Анализ шумового профиля
+        noise_profile = self.noise_profiler.analyze_file(audio_file)
+        result['noise_profile'] = noise_profile
+        
+        # Выбор стратегии декодирования на основе шума
+        if noise_profile['snr'] > 20:  # Высокое качество
+            # Стандартное декодирование
+            command = self.base_decoder.decode_file(audio_file)
+            confidence = 0.95 if command else 0.0
+            method = 'standard'
+            
+        elif noise_profile['snr'] > 10:  # Среднее качество
+            # ML-улучшенное декодирование
+            command, confidence = self.ml_decoder.decode_with_confidence(audio_file)
+            method = 'ml_enhanced'
+            
+        else:  # Низкое качество
+            # Агрессивная ML-обработка
+            command, confidence = self.ml_decoder.decode_aggressive(audio_file)
+            method = 'ml_aggressive'
+        
+        result['command'] = command if confidence > self.confidence_threshold else None
+        result['confidence'] = confidence
+        result['method'] = method
+        
+        # Генерация рекомендаций
+        result['recommendations'] = self._generate_recommendations(noise_profile, confidence)
+        
+        return result
+    
+    def _generate_recommendations(self, noise_profile: dict, confidence: float) -> list:
+        """Генерация рекомендаций по улучшению"""
+        
+        recommendations = []
+        
+        if noise_profile['snr'] < 15:
+            recommendations.append("Используйте шумоподавление перед декодированием")
+        
+        if confidence < 0.6:
+            recommendations.append("Попробуйте увеличить амплитуду сигнала")
+        
+        if noise_profile['has_high_freq_noise']:
+            recommendations.append("Примените фильтр высоких частот")
+        
+        if noise_profile['background_music']:
+            recommendations.append("Рассмотрите использование других частот")
+        
+        return recommendations
+    
+    def train_on_custom_data(self, training_data: list):
+        """Обучение на пользовательских данных"""
+        
+        print("🎓 Начинаем обучение ML модели...")
+        
+        features = []
+        labels = []
+        
+        for data_point in training_data:
+            # Извлечение признаков из аудио
+            audio_features = self._extract_features(data_point['audio'])
+            features.append(audio_features)
+            labels.append(data_point['has_command'])
+        
+        # Обучение классификатора
+        classifier = RandomForestClassifier(n_estimators=100, random_state=42)
+        classifier.fit(np.array(features), labels)
+        
+        # Обновление ML декодера
+        self.ml_decoder.update_classifier(classifier)
+        
+        print("✅ Обучение завершено")
+    
+    def _extract_features(self, audio_data: np.ndarray) -> list:
+        """Извлечение признаков из аудиоданных"""
+        
+        features = []
+        
+        # Спектральные признаки
+        fft = np.fft.fft(audio_data)
+        spectrum = np.abs(fft)
+        
+        # Энергия в целевых частотах (18-20 кГц)
+        target_freq_energy = np.sum(spectrum[18000:20000])
+        features.append(target_freq_energy)
+        
+        # Общая энергия сигнала
+        total_energy = np.sum(spectrum)
+        features.append(total_energy)
+        
+        # Отношение энергий
+        if total_energy > 0:
+            features.append(target_freq_energy / total_energy)
+        else:
+            features.append(0)
+        
+        # Пиковая частота
+        peak_freq = np.argmax(spectrum)
+        features.append(peak_freq)
+        
+        # Спектральная энтропия
+        normalized_spectrum = spectrum / np.sum(spectrum)
+        entropy = -np.sum(normalized_spectrum * np.log2(normalized_spectrum + 1e-10))
+        features.append(entropy)
+        
+        return features
+
+# Пример использования интеллектуального декодера
+decoder = IntelligentDecoder(encryption_key)
+
+# Декодирование с ML-улучшениями
+result = decoder.decode_with_ml_enhancement("noisy_audio.mp3")
+
+print(f"Команда: {result['command']}")
+print(f"Уверенность: {result['confidence']:.2f}")
+print(f"Метод: {result['method']}")
+print(f"SNR: {result['noise_profile']['snr']:.1f} дБ")
+
+if result['recommendations']:
+    print("Рекомендации:")
+    for rec in result['recommendations']:
+        print(f"  • {rec}")
+
+# Обучение на пользовательских данных (опционально)
+# training_data = [
+#     {'audio': audio_sample_1, 'has_command': True},
+#     {'audio': audio_sample_2, 'has_command': False},
+#     # ... больше данных
+# ]
+# decoder.train_on_custom_data(training_data)</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Hardware Acceleration -->
+                    <div class="border-l-4 border-purple-500 pl-6">
+                        <h3 class="text-2xl font-bold text-purple-600 mb-4">
+                            <i class="fas fa-microchip mr-2"></i>
+                            Аппаратное ускорение
+                        </h3>
+                        <p class="mb-4">
+                            Поддержка GPU ускорения для обработки больших объемов данных и работы с множественными потоками.
+                        </p>
+                        
+                        <div class="code-block p-4 rounded mb-4">
+                            <pre><code># GPU-ускоренная обработка
+from agentic_commands_stego.acceleration import GPUProcessor
+import cupy as cp  # CUDA для Python
+import torch
+
+class AcceleratedProcessor:
+    def __init__(self, key: bytes, use_gpu: bool = True):
+        self.key = key
+        self.use_gpu = use_gpu and torch.cuda.is_available()
+        
+        if self.use_gpu:
+            self.device = torch.device('cuda')
+            print(f"🚀 Используется GPU: {torch.cuda.get_device_name()}")
+        else:
+            self.device = torch.device('cpu
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDh5t0MHOSHRvxshvfWoJfCBrPFGLn6ryLXkCbOkh%2B4h%2BmzBw74tt6imeBwusKErFvPnZvhDGO8bpwWmUu%2F4lm8btQ%2BpmoIp84UtfEU1zfuff5%2FEjZKh45phrLcbUsbyRqIPXgSy6a9jOpMkKe2PZ4QKPDlYcgdhAjvPMLGPlfd6kdudcVFCzq5dPeMsyLZ%2BoWMpGtWzZU0fzqEoRdlII6nGxWpiD1qCWfN53uUl5dqzGBRikWd4CZYTRv8QNZr4gRKU7PYLhxvHcvE9RrVcUVnNex%2FqawqkhrJuW39qpoTh5ErBmk0w%2BnkKM0DRjqn3VcZNU4cqjL%2BUfE7h8VVc9kCEFCsoI%2FyMllnQLfTy4sAHvnnI3Cg1on9Aq9ZJPxBz1oOdeD16LxwpzkUCSMuzjbJi5LX%2BaEQIyJwmz3LyJvTEwBASChdQMxiD5rUbnDOx6XMqhdd38N46XfvtHbcWGxHCdQOUbyaXobopwarJznXH8Hb4cWKaiyKVvcBqoVdZKLDl20xF5gTqAZsprgBANs9c%3D";
+        window.__genspark_locale = "en-US";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDh5t0MHOSHRvxshvfWoJfCBrPFGLn6ryLXkCbOkh+4h+mzBw74tt6imeBwusKErFvPnZvhDGO8bpwWmUu/4lm8btQ+pmoIp84UtfEU1zfuff5/EjZKh45phrLcbUsbyRqIPXgSy6a9jOpMkKe2PZ4QKPDlYcgdhAjvPMLGPlfd6kdudcVFCzq5dPeMsyLZ+oWMpGtWzZU0fzqEoRdlII6nGxWpiD1qCWfN53uUl5dqzGBRikWd4CZYTRv8QNZr4gRKU7PYLhxvHcvE9RrVcUVnNex/qawqkhrJuW39qpoTh5ErBmk0w+nkKM0DRjqn3VcZNU4cqjL+UfE7h8VVc9kCEFCsoI/yMllnQLfTy4sAHvnnI3Cg1on9Aq9ZJPxBz1oOdeD16LxwpzkUCSMuzjbJi5LX+aEQIyJwmz3LyJvTEwBASChdQMxiD5rUbnDOx6XMqhdd38N46XfvtHbcWGxHCdQOUbyaXobopwarJznXH8Hb4cWKaiyKVvcBqoVdZKLDl20xF5gTqAZsprgBANs9c=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
